@@ -1,0 +1,71 @@
+ファイル構成
+./source
+│
+├─common
+│      DatabaseManager.php (SQLite3 を操作するクラスファイル)
+│      IpaAnalysis.php (ipaファイルを解析するためのクラス)
+│      MySmarty.php (Smartyライブラリ設定ファイル)
+│      PlistFile.php (Xcodeで出力した際には正確なURLを指定できないので、アップロード時に plistのURLを書き換えるクラス)
+│      Setting.php (設定ファイルから情報を取り出すファイル)
+│      Utility.php (共通で使うメソッド群が定義されているファイル)
+│
+├─data
+│  │  devices.json (デバイス情報一覧ファイル)
+│  │  setting.json (設定ファイル)
+│  │  list.db (ファイル情報のDB)
+│  │
+│  └─app (アップロードしたファイルが置かれる場所)
+│
+├─library
+│  ├─CFPropertyList (plist をパースするために使っているライブラリ)
+│  │
+│  └─Mobile_Detect (端末判定ライブラリ)
+│
+├─public_html
+│  │  dl.php (plist,ipa ファイルダウンロードphpファイル)
+│  │  index.php (トップページのphpファイル)
+│  │  ipaInfo.php (アプリ情報ページのphpファイル)
+│  │  cacert.der (自己認証局の証明書を配置する)
+│  │
+│  ├─admin
+│  │      delete.php (ファイル削除のphpファイル)
+│  │      downloadhistory.php (ダウンロード履歴ページのphpファイル)
+│  │      edit.php (アプリ編集ページのphpファイル)
+│  │      editresult.php (アプリ編集結果のページのphpファイル)
+│  │      index.php (管理者用トップページのphpファイル)
+│  │      result.php (アップロード結果ページのphpファイル)
+│  │      setting.php (サイト設定編集ページのphpファイル)
+│  │      settingresult.php (サイト設定編集結果のページのphpファイル)
+│  │      uploader.php (アップロードページのphpファイル)
+│  │      jenkinsuploadapi.php (Jenkinsからの自動アップロード用のphpファイル)
+│  │
+│  ├─css
+│  │      baseEdit.css (ユーザー定義 のCSS)
+│  │      bootstrap-theme.min.css (bootstrap のCSS)
+│  │      bootstrap.min.css (bootstrap のCSS)
+│  │      downloadhistory.css (ユーザー定義 のCSS)
+│  │
+│  └─js
+│          bootstrap.min.js (bootstrap のJavaScript)
+│          downloadhistory.js (ユーザー定義 のJavaScript)
+│          edit.js (ユーザー定義 のJavaScript)
+│          index.js (ユーザー定義 のJavaScript)
+│          jquery-2.1.1.min.js (jquery のJavaScript)
+│          setting.js (ユーザー定義 のJavaScript)
+│          uploader.js (ユーザー定義 のJavaScript)
+│
+├─Smarty (Smartyライブラリ)
+│
+├─templates
+│  │  header.tpl (ヘッダーのテンプレートファイル)
+│  │  index.tpl (トップページのテンプレートファイル)
+│  │  ipainfo.tpl (アプリ情報ページのテンプレートファイル)
+│  │
+│  └─admin
+│          downloadhistory.tpl (ダウンロード履歴ページのテンプレートファイル)
+│          edit.tpl (アプリ編集ページのテンプレートファイル)
+│          result.tpl (結果ページのテンプレートファイル)
+│          setting.tpl (サイト設定編集ページのテンプレートファイル)
+│          uploader.tpl (アップロードページのテンプレートファイル)
+│
+└─templates_c (Smartyキャッシュ)

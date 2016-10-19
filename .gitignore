@@ -1,0 +1,21 @@
+.DS_Store
+
+# PhpStorm の プロジェクトファイルは無視
+.idea/*
+
+# Smarty の テンプレートキャッシュは全て無視
+*.tpl.php
+
+# dbファイルは無視
+*.db
+
+# アプリ側で作成したディレクトリも無視
+data/app/*
+public_html/app/*
+
+# アップロードしたファイルも無視
+*.plist
+*.ipa
+
+# X.509証明書ファイル
+cacert.der

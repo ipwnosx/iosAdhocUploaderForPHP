@@ -1,0 +1,7 @@
+# plist と ipa をダウンロードさせるための URL ルーティング設定
+# apache用
+
+#<IfModule mod_rewrite.c>
+#RewriteEngine On
+#RewriteRule ^/?dl.php/(.*) dl.php/$1 [R=301,L]
+#</IfModule>

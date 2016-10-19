@@ -1,0 +1,26 @@
+.tablestyle {
+    width: 100%;
+    border-collapse: collapse;
+}
+.tablestyle th{
+    padding: 6px;
+    text-align: center;
+    vertical-align: top;
+    color: #333;
+    background-color: #eee;
+    border: 1px solid #b9b9b9;
+    white-space: nowrap;
+}
+.tablestyle td{
+    padding: 6px;
+    background-color: #fff;
+    border: 1px solid #b9b9b9;
+    white-space: nowrap;
+}
+.tablestyle .r{
+    background-color: #ffe0e0;
+}
+
+.viewForm {
+    margin: 15px;
+}

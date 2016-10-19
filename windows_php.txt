@@ -1,0 +1,34 @@
+http://symfoware.blog68.fc2.com/blog-entry-1077.html
+
+アクセス権
+IIS_IUSRS
+IUSR
+
+
+
+アップロード時に一時的に置いておく場所
+upload_tmp_dir ="C:\inetpub\temp"
+
+
+
+;コメントを外す
+cgi.fix_pathinfo=1
+fastcgi.impersonate=1
+
+;コメントをはずし、値を1から0に変更
+cgi.force_redirect=0
+
+;コメントを外し、値を設定する
+error_log = c:/php5/logs/php_errors.log
+date.timezone = Asia/Tokyo
+;セキュリティ的に指定した方がよいが無くても問題ない
+open_basedir = "C:\inetpub\wwwroot"
+extension_dir = "絶対パス"
+
+
+
+下記の拡張機能を有効にするためコメントをはずす
+extension=php_fileinfo.dll
+extension=php_mbstring.dll
+extension=php_openssl.dll
+extension=php_sqlite3.dll
