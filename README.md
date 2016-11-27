@@ -30,31 +30,13 @@ Webの脆弱性に対する対応は行なっていないので、外部公開�
   * upload_max_filesize = 2G
 
 * SSLの証明書は運用するIPアドレスにすること（自己証明でも！下記参照）
-  * 「create_ssl_certificate.sh」
-  * http://qiita.com/nyarla/items/54598cd199d418a61cdf
-  * http://webos-goodies.jp/archives/simple_way_of_creating_ssl_certification.html
-  * http://marchenterprise.net/2014/03/12/post-211/
-
-````
-  cd ~/ssl/
-  sudo /System/Library/OpenSSL/misc/CA.sh -newca
-  sudo openssl genrsa -des3 -out server.key 2048
-  sudo openssl rsa -in server.key -out server.key
-  sudo openssl req -new -days 3650 -key server.key -out server.csr
-  sudo openssl ca -in server.csr -keyfile demoCA/private/cakey.pem -out server.crt
-  # エラーが出た場合は一度ファイルを削除して再生成
-  sudo rm -f demoCA/index.txt
-  sudo touch demoCA/index.txt
-  sudo openssl ca -in server.csr -keyfile demoCA/private/cakey.pem -out server.crt
-  # iosでダウンロードする用のderファイルを作成する
-  cd ./demoCA
-  sudo openssl x509 -in cacert.pem -outform DER -out cacert.der
-````
+  * [https://gist.github.com/npoyu/7ee01562a2188e1e63ce9557321fbb17](https://gist.github.com/npoyu/7ee01562a2188e1e63ce9557321fbb17)
 
 
 #### アクセス権限の設定等
 
 推奨のアクセス権は下記の通りです
+
 ````
 # mac の apache の実行プロセスは _www:_www（各環境で調べる）
 sudo chown -R _www:_www
@@ -68,6 +50,7 @@ sudo chmod -R 755 ./
 
 
 jenkinsuploadapi.php に対してアップロードするための curl コマンドサンプル
+
 ````
 curl\
  -F "title=テストタイトルです" \
