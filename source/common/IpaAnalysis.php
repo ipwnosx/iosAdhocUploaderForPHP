@@ -7,6 +7,8 @@ class IpaAnalysis
 {
 
     private $ipaFilePath;
+    private $infoPlistData;
+    private $mobileprovisionPlistData;
 
     /*
      * $ipaFilePath : ipa ファイルのファイルパスを指定する
@@ -20,6 +22,8 @@ class IpaAnalysis
         if (!file_exists($this->ipaFilePath)) {
             throw new RuntimeException('ipa ファイルが存在しません');
         }
+
+        $this->ipaUnzip();
     }
 
     public function __destruct()
@@ -28,17 +32,15 @@ class IpaAnalysis
 
 
     /**
-     * ipa ファイルに含まれている Info.plist の内容を配列で返す
+     * ipa ファイルの zip内のデータを取得します。
      *
-     * 取得に失敗したら nil が返る
+     * Info.plist
+     * embedded.mobileprovision
+     *
+     * 一度に上記２つのplistのデータを展開します
      */
-    public function getInfoPlistArrayAndXml()
+    private function ipaUnzip()
     {
-
-        // Info.plist ファイルのデータ
-        $infoPlistData = '';
-
-
         // ipa ファイルはzipなので、zipファイルを open する
         $zip = new ZipArchive();
         if ($zip->open($this->ipaFilePath) === TRUE) {
@@ -49,8 +51,15 @@ class IpaAnalysis
                 // Payload/アプリ名.app/Info.plist
                 if (count(explode('/', $filename)) === 3 && preg_match('/Info\.plist$/', $filename) === 1) {
                     // ファイル名から Info.plist の内容を取り出す
-                    $infoPlistData = $zip->getFromName($filename);
-                    break;
+                    $this->infoPlistData = $zip->getFromName($filename);
+                }
+
+                // Payload/アプリ名.app/embedded.mobileprovision
+                if (count(explode('/', $filename)) === 3 && preg_match('/embedded\.mobileprovision/', $filename) === 1) {
+                    // ファイル名から embedded.mobileprovision の内容を取り出す
+                    $mobileprovision = $zip->getFromName($filename);
+                    preg_match('/(<\?xml version="1.0" encoding="UTF-8"\?>.*<\/plist>)/s', $mobileprovision, $matches);
+                    $this->mobileprovisionPlistData = $matches[1];
                 }
             }
 
@@ -58,9 +67,29 @@ class IpaAnalysis
             $zip->close();
 
         }
+    }
 
+    /**
+     * ipa ファイルに含まれている Info.plist の内容を配列で返す
+     *
+     * 取得に失敗したら nil が返る
+     */
+    public function getInfoPlistArrayAndXml()
+    {
         $plist = new CFPropertyList\CFPropertyList;
-        $plist->parse($infoPlistData);
+        $plist->parse($this->infoPlistData);
+        $xml = Array(
+            'array' => $plist->toArray(),
+            'xml' => $plist->toXML(true)
+        );
+
+        return $xml;
+    }
+
+    public function getMobileprovisionArrayAndXml()
+    {
+        $plist = new CFPropertyList\CFPropertyList;
+        $plist->parse($this->mobileprovisionPlistData);
         $xml = Array(
             'array' => $plist->toArray(),
             'xml' => $plist->toXML(true)
@@ -77,7 +106,8 @@ class IpaAnalysis
      * @throws \CFPropertyList\IOException
      * @throws \CFPropertyList\PListException
      */
-    static public function getInfoPlistArray($xml) {
+    static public function getArrayFromPlistString($xml)
+    {
 
         $plist = new CFPropertyList\CFPropertyList;
         $plist->parse($xml);

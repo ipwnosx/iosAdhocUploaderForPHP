@@ -1,228 +1,240 @@
 {
-    "timestamp": 1476791458,
-    "date": "2016-10-18T20:50:58+09:00",
+    "timestamp": 1484960965,
+    "date": "2017-01-21T10:09:25+09:00",
     "devices": [
         {
-            "friendlyName": "iPhone 7 Plus (GSM)",
-            "identifier": "iPhone9,2",
-            "introducedsort": "2016-09-03",
-            "latestiOS": "10.0.3 (14A551)"
-        },
-        {
-            "friendlyName": "iPhone 7 Plus (Global)",
-            "identifier": "iPhone9,2",
-            "introducedsort": "2016-09-03",
-            "latestiOS": "10.0.3 (14A551)"
-        },
-        {
             "friendlyName": "iPhone 7 (GSM)",
-            "identifier": "iPhone9,1",
+            "identifier": "iPhone",
             "introducedsort": "2016-09-03",
-            "latestiOS": "10.0.3 (14A551)"
+            "latestiOS": "10.2 (14C92)"
+        },
+        {
+            "friendlyName": "iPhone 7 Plus (GSM)",
+            "identifier": "iPhone",
+            "introducedsort": "2016-09-03",
+            "latestiOS": "10.2 (14C92)"
         },
         {
             "friendlyName": "iPhone 7 (Global)",
-            "identifier": "iPhone9,1",
+            "identifier": "iPhone",
             "introducedsort": "2016-09-03",
-            "latestiOS": "10.0.3 (14A551)"
+            "latestiOS": "10.2 (14C92)"
+        },
+        {
+            "friendlyName": "iPhone 7 Plus (Global)",
+            "identifier": "iPhone",
+            "introducedsort": "2016-09-03",
+            "latestiOS": "10.2 (14C92)"
         },
         {
             "friendlyName": "iPhone SE",
             "identifier": "iPhoneSE",
             "introducedsort": "2016-03-15",
-            "latestiOS": "10.0.2 (14A456)"
+            "latestiOS": "10.2 (14C92)"
         },
         {
             "friendlyName": "iPad Pro 9.7-inch (Cellular)",
             "identifier": "iPadPro",
             "introducedsort": "2016-03-15",
-            "latestiOS": "10.0.2 (14A456)"
+            "latestiOS": "10.2 (14C92)"
         },
         {
             "friendlyName": "iPad Pro 9.7-inch (WiFi)",
             "identifier": "iPadPro",
             "introducedsort": "2016-03-15",
-            "latestiOS": "10.0.2 (14A456)"
-        },
-        {
-            "friendlyName": "iPad Pro 12.9-inch (WiFi)",
-            "identifier": "iPadPro",
-            "introducedsort": "2015-10-16",
-            "latestiOS": "10.0.2 (14A456)"
-        },
-        {
-            "friendlyName": "iPad Pro 12.9-inch (Cellular)",
-            "identifier": "iPadPro",
-            "introducedsort": "2015-10-16",
-            "latestiOS": "10.0.2 (14A456)"
-        },
-        {
-            "friendlyName": "iPhone 6s",
-            "identifier": "iPhone",
-            "introducedsort": "2015-09-09",
-            "latestiOS": "10.0.2 (14A456)"
-        },
-        {
-            "friendlyName": "iPhone 6s+",
-            "identifier": "iPhone",
-            "introducedsort": "2015-09-09",
-            "latestiOS": "10.0.2 (14A456)"
-        },
-        {
-            "friendlyName": "iPad Mini 4 (WiFi)",
-            "identifier": "iPad",
-            "introducedsort": "2015-09-09",
-            "latestiOS": "10.0.2 (14A456)"
-        },
-        {
-            "friendlyName": "iPad Mini 4 (Cellular)",
-            "identifier": "iPad",
-            "introducedsort": "2015-09-09",
-            "latestiOS": "10.0.2 (14A456)"
-        },
-        {
-            "friendlyName": "iPod touch 6",
-            "identifier": "iPodtouch",
-            "introducedsort": "2015-06-26",
-            "latestiOS": "10.0.2 (14A456)"
-        },
-        {
-            "friendlyName": "iPad Mini 3 (WiFi)",
-            "identifier": "iPad",
-            "introducedsort": "2014-10-13",
-            "latestiOS": "10.0.2 (14A456)"
-        },
-        {
-            "friendlyName": "iPad Mini 3 (Cellular)",
-            "identifier": "iPad",
-            "introducedsort": "2014-10-13",
-            "latestiOS": "10.0.2 (14A456)"
-        },
-        {
-            "friendlyName": "iPad Mini 3 (China)",
-            "identifier": "iPad",
-            "introducedsort": "2014-10-13",
-            "latestiOS": "10.0.2 (14A456)"
-        },
-        {
-            "friendlyName": "iPad Air 2 (WiFi)",
-            "identifier": "iPad",
-            "introducedsort": "2014-10-13",
-            "latestiOS": "10.0.2 (14A456)"
-        },
-        {
-            "friendlyName": "iPad Air 2 (Cellular)",
-            "identifier": "iPad",
-            "introducedsort": "2014-10-13",
-            "latestiOS": "10.0.2 (14A456)"
-        },
-        {
-            "friendlyName": "iPhone 6+",
-            "identifier": "iPhone",
-            "introducedsort": "2014-09-09",
-            "latestiOS": "10.0.2 (14A456)"
-        },
-        {
-            "friendlyName": "iPhone 6",
-            "identifier": "iPhone",
-            "introducedsort": "2014-09-09",
-            "latestiOS": "10.0.2 (14A456)"
-        },
-        {
-            "friendlyName": "iPad Air (China)",
-            "identifier": "iPad",
-            "introducedsort": "2014-03-04",
-            "latestiOS": "10.0.2 (14A456)"
-        },
-        {
-            "friendlyName": "iPad Mini 2 (China)",
-            "identifier": "iPad",
-            "introducedsort": "2014-03-04",
-            "latestiOS": "10.0.2 (14A456)"
-        },
-        {
-            "friendlyName": "iPad Air (WiFi)",
-            "identifier": "iPad",
-            "introducedsort": "2013-10-16",
-            "latestiOS": "10.0.2 (14A456)"
-        },
-        {
-            "friendlyName": "iPad Air (Cellular)",
-            "identifier": "iPad",
-            "introducedsort": "2013-10-16",
-            "latestiOS": "10.0.2 (14A456)"
-        },
-        {
-            "friendlyName": "iPad Mini 2 (WiFi)",
-            "identifier": "iPad",
-            "introducedsort": "2013-10-16",
-            "latestiOS": "10.0.2 (14A456)"
-        },
-        {
-            "friendlyName": "iPad Mini 2 (Cellular)",
-            "identifier": "iPad",
-            "introducedsort": "2013-10-16",
-            "latestiOS": "10.0.2 (14A456)"
-        },
-        {
-            "friendlyName": "iPhone 5s (Global)",
-            "identifier": "iPhone",
-            "introducedsort": "2013-09-14",
-            "latestiOS": "10.0.2 (14A456)"
-        },
-        {
-            "friendlyName": "iPhone 5c (GSM)",
-            "identifier": "iPhone",
-            "introducedsort": "2013-09-14",
-            "latestiOS": "10.0.2 (14A456)"
-        },
-        {
-            "friendlyName": "iPhone 5c (Global)",
-            "identifier": "iPhone",
-            "introducedsort": "2013-09-14",
-            "latestiOS": "10.0.2 (14A456)"
-        },
-        {
-            "friendlyName": "iPhone 5s (GSM)",
-            "identifier": "iPhone",
-            "introducedsort": "2013-09-14",
-            "latestiOS": "10.0.2 (14A456)"
-        },
-        {
-            "friendlyName": "iPad 4 (GSM)",
-            "identifier": "iPad",
-            "introducedsort": "2012-11-06",
-            "latestiOS": "10.0.2 (14A456)"
-        },
-        {
-            "friendlyName": "iPad 4 (Global)",
-            "identifier": "iPad",
-            "introducedsort": "2012-11-06",
-            "latestiOS": "10.0.2 (14A456)"
-        },
-        {
-            "friendlyName": "iPad 4 (WiFi)",
-            "identifier": "iPad",
-            "introducedsort": "2012-10-29",
-            "latestiOS": "10.0.2 (14A456)"
-        },
-        {
-            "friendlyName": "iPhone 5 (GSM)",
-            "identifier": "iPhone",
-            "introducedsort": "2012-09-14",
-            "latestiOS": "10.0.2 (14A456)"
-        },
-        {
-            "friendlyName": "iPhone 5 (Global)",
-            "identifier": "iPhone",
-            "introducedsort": "2012-09-14",
-            "latestiOS": "10.0.2 (14A456)"
+            "latestiOS": "10.2 (14C92)"
         },
         {
             "friendlyName": "Apple TV 4 (2015)",
             "identifier": "AppleTV5,3",
             "introducedsort": "2015-10-29",
-            "latestiOS": "10.0 (14T330)"
+            "latestiOS": "10.1 (14U593)"
+        },
+        {
+            "friendlyName": "iPad Pro 12.9-inch (WiFi)",
+            "identifier": "iPadPro",
+            "introducedsort": "2015-10-16",
+            "latestiOS": "10.2 (14C92)"
+        },
+        {
+            "friendlyName": "iPad Pro 12.9-inch (Cellular)",
+            "identifier": "iPadPro",
+            "introducedsort": "2015-10-16",
+            "latestiOS": "10.2 (14C92)"
+        },
+        {
+            "friendlyName": "iPhone 6s",
+            "identifier": "iPhone",
+            "introducedsort": "2015-09-09",
+            "latestiOS": "10.2 (14C92)"
+        },
+        {
+            "friendlyName": "iPhone 6s+",
+            "identifier": "iPhone",
+            "introducedsort": "2015-09-09",
+            "latestiOS": "10.2 (14C92)"
+        },
+        {
+            "friendlyName": "iPad Mini 4 (WiFi)",
+            "identifier": "iPad",
+            "introducedsort": "2015-09-09",
+            "latestiOS": "10.2 (14C92)"
+        },
+        {
+            "friendlyName": "iPad Mini 4 (Cellular)",
+            "identifier": "iPad",
+            "introducedsort": "2015-09-09",
+            "latestiOS": "10.2 (14C92)"
+        },
+        {
+            "friendlyName": "iPod touch 6",
+            "identifier": "iPodtouch",
+            "introducedsort": "2015-06-26",
+            "latestiOS": "10.2 (14C92)"
+        },
+        {
+            "friendlyName": "iPad Mini 3 (WiFi)",
+            "identifier": "iPad",
+            "introducedsort": "2014-10-13",
+            "latestiOS": "10.2 (14C92)"
+        },
+        {
+            "friendlyName": "iPad Mini 3 (Cellular)",
+            "identifier": "iPad",
+            "introducedsort": "2014-10-13",
+            "latestiOS": "10.2 (14C92)"
+        },
+        {
+            "friendlyName": "iPad Mini 3 (China)",
+            "identifier": "iPad",
+            "introducedsort": "2014-10-13",
+            "latestiOS": "10.2 (14C92)"
+        },
+        {
+            "friendlyName": "iPad Air 2 (WiFi)",
+            "identifier": "iPad",
+            "introducedsort": "2014-10-13",
+            "latestiOS": "10.2 (14C92)"
+        },
+        {
+            "friendlyName": "iPad Air 2 (Cellular)",
+            "identifier": "iPad",
+            "introducedsort": "2014-10-13",
+            "latestiOS": "10.2 (14C92)"
+        },
+        {
+            "friendlyName": "iPhone 6+",
+            "identifier": "iPhone",
+            "introducedsort": "2014-09-09",
+            "latestiOS": "10.2 (14C92)"
+        },
+        {
+            "friendlyName": "iPhone 6",
+            "identifier": "iPhone",
+            "introducedsort": "2014-09-09",
+            "latestiOS": "10.2 (14C92)"
+        },
+        {
+            "friendlyName": "iPad Air (China)",
+            "identifier": "iPad",
+            "introducedsort": "2014-03-04",
+            "latestiOS": "10.2 (14C92)"
+        },
+        {
+            "friendlyName": "iPad Mini 2 (China)",
+            "identifier": "iPad",
+            "introducedsort": "2014-03-04",
+            "latestiOS": "10.2 (14C92)"
+        },
+        {
+            "friendlyName": "iPad Air (WiFi)",
+            "identifier": "iPad",
+            "introducedsort": "2013-10-16",
+            "latestiOS": "10.2 (14C92)"
+        },
+        {
+            "friendlyName": "iPad Air (Cellular)",
+            "identifier": "iPad",
+            "introducedsort": "2013-10-16",
+            "latestiOS": "10.2 (14C92)"
+        },
+        {
+            "friendlyName": "iPad Mini 2 (WiFi)",
+            "identifier": "iPad",
+            "introducedsort": "2013-10-16",
+            "latestiOS": "10.2 (14C92)"
+        },
+        {
+            "friendlyName": "iPad Mini 2 (Cellular)",
+            "identifier": "iPad",
+            "introducedsort": "2013-10-16",
+            "latestiOS": "10.2 (14C92)"
+        },
+        {
+            "friendlyName": "iPhone 5s (Global)",
+            "identifier": "iPhone",
+            "introducedsort": "2013-09-14",
+            "latestiOS": "10.2 (14C92)"
+        },
+        {
+            "friendlyName": "iPhone 5c (GSM)",
+            "identifier": "iPhone",
+            "introducedsort": "2013-09-14",
+            "latestiOS": "10.2 (14C92)"
+        },
+        {
+            "friendlyName": "iPhone 5c (Global)",
+            "identifier": "iPhone",
+            "introducedsort": "2013-09-14",
+            "latestiOS": "10.2 (14C92)"
+        },
+        {
+            "friendlyName": "iPhone 5s (GSM)",
+            "identifier": "iPhone",
+            "introducedsort": "2013-09-14",
+            "latestiOS": "10.2 (14C92)"
+        },
+        {
+            "friendlyName": "Apple TV 3 (2013)",
+            "identifier": "AppleTV3,2",
+            "introducedsort": "2013-01-25",
+            "latestiOS": "8.4.2 (12H606)"
+        },
+        {
+            "friendlyName": "iPad 4 (GSM)",
+            "identifier": "iPad",
+            "introducedsort": "2012-11-06",
+            "latestiOS": "10.2 (14C92)"
+        },
+        {
+            "friendlyName": "iPad 4 (Global)",
+            "identifier": "iPad",
+            "introducedsort": "2012-11-06",
+            "latestiOS": "10.2 (14C92)"
+        },
+        {
+            "friendlyName": "iPad 4 (WiFi)",
+            "identifier": "iPad",
+            "introducedsort": "2012-10-29",
+            "latestiOS": "10.2 (14C92)"
+        },
+        {
+            "friendlyName": "iPhone 5 (GSM)",
+            "identifier": "iPhone",
+            "introducedsort": "2012-09-14",
+            "latestiOS": "10.2 (14C92)"
+        },
+        {
+            "friendlyName": "iPhone 5 (Global)",
+            "identifier": "iPhone",
+            "introducedsort": "2012-09-14",
+            "latestiOS": "10.2 (14C92)"
+        },
+        {
+            "friendlyName": "Apple TV 3",
+            "identifier": "AppleTV3,1",
+            "introducedsort": "2012-02-29",
+            "latestiOS": "8.4.2 (12H606)"
         },
         {
             "friendlyName": "iPad Mini (Global)",
@@ -295,18 +307,6 @@
             "identifier": "iPad2,1",
             "introducedsort": "2011-03-03",
             "latestiOS": "9.3.5 (13G36)"
-        },
-        {
-            "friendlyName": "Apple TV 3 (2013)",
-            "identifier": "AppleTV3,2",
-            "introducedsort": "2013-01-25",
-            "latestiOS": "8.4.1 (12H523)"
-        },
-        {
-            "friendlyName": "Apple TV 3",
-            "identifier": "AppleTV3,1",
-            "introducedsort": "2012-02-29",
-            "latestiOS": "8.4.1 (12H523)"
         },
         {
             "friendlyName": "Apple Watch (42mm)",

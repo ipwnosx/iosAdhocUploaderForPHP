@@ -36,7 +36,7 @@
             </div>
 
             <div class="form-group">
-                <label for="inputSlackApiUrl" class="col-lg-3 control-label">SlackAPI URL（必須）</label>
+                <label for="inputSlackApiUrl" class="col-lg-3 control-label">SlackAPI URL（任意）</label>
 
                 <div class="col-lg-9">
                     <input type="text" class="form-control" id="inputSlackApiUrl" name="inputSlackApiUrl" value="{$slack.url|default:''}">
@@ -44,7 +44,7 @@
             </div>
 
             <div class="form-group">
-                <label for="inputChannel" class="col-lg-3 control-label">チャンネル名（必須）</label>
+                <label for="inputChannel" class="col-lg-3 control-label">チャンネル名（任意）</label>
 
                 <div class="col-lg-9">
                     <input type="text" class="form-control" id="inputChannel" name="inputChannel" value="{$slack.channel|default:''}">
@@ -52,7 +52,7 @@
             </div>
 
             <div class="form-group">
-                <label for="inputSlackTitle" class="col-lg-3 control-label">Slack投稿時タイトル（必須）</label>
+                <label for="inputSlackTitle" class="col-lg-3 control-label">Slack投稿時タイトル（任意）</label>
 
                 <div class="col-lg-9">
                     <input type="text" class="form-control" id="inputSlackTitle" name="inputSlackTitle" value="{$slack.username|default:''}">

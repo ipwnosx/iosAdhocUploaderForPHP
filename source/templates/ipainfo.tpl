@@ -86,6 +86,23 @@
         </tbody>
     </table>
 
+    <div>Provisioning Profile情報</div>
+    <table class="table table-striped table-bordered table-hover text-center">
+        <tbody>
+        <tr><td>Apple ID</td><td>{$mobileprovisionArray.AppIDName}</td></tr>
+        <tr><td>インストール期限</td><td>{'Y-m-d H:i:s T'|date:$mobileprovisionArray.ExpirationDate}</td></tr>
+        <tr><td>名前</td><td>{$mobileprovisionArray.Name}</td></tr>
+        <tr>
+            <td>インストール可能デバイス(UDID)</td>
+            <td>
+                {foreach $mobileprovisionArray['ProvisionedDevices'] as $m}
+                    {$m}<br>
+                {/foreach}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
 </div>
 
 </body>

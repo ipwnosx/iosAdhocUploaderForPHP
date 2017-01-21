@@ -10,8 +10,7 @@
 *.db
 
 # アプリ側で作成したディレクトリも無視
-data/app/*
-public_html/app/*
+source/data/app/*
 
 # アップロードしたファイルも無視
 *.plist

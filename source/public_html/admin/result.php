@@ -139,11 +139,6 @@ try {
         }
 
 
-        // ipa ファイルから アプリ情報を取得する
-        $bundleIdentifier = '';
-        $bundleVersion = '';
-        $bundleBuild = '';
-
         // ライブラリが binaryPlist に対応しているので、OS関係なく実行が可能
         $ipa = new IpaAnalysis($fileNameArray['ipa']['tmpName']);
         $infoPlistArrayAndXml = $ipa->getInfoPlistArrayAndXml();
@@ -158,7 +153,10 @@ try {
             // 最後に アプリ情報を表示るすための情報を整形
             $ipaInfoMessage = '<br><br>Bundle Identifier : ' . $bundleIdentifier . '<br>Version : ' . $bundleVersion . '<br>Build : ' . $bundleBuild;
         }
-
+        $mobileprovisionArrayAndXml = $ipa->getMobileprovisionArrayAndXml();
+        if (array_key_exists('ExpirationDate', $mobileprovisionArrayAndXml['array'])) {
+            $expirationDate = date('Y-m-d H:i:s', $mobileprovisionArrayAndXml['array']['ExpirationDate']);
+        }
 
         // DB
         $db->query("BEGIN;");
@@ -167,7 +165,20 @@ try {
         $directoryHash = "";
         for ($i = 0; $i < 3; $i++) {
             $directoryHash = hash('sha256', (uniqid(rand(), 1)));
-            $result = $db->adhocInsert($title, $directoryHash, $fileNameArray['ipa']['name'], $fileNameArray['ipa']['hashName'], $notes, $developerNotes, $bundleIdentifier, $bundleVersion, $bundleBuild, $infoPlistArrayAndXml['xml'], 0);
+            $result = $db->adhocInsert(
+                $title,
+                $directoryHash,
+                $fileNameArray['ipa']['name'],
+                $fileNameArray['ipa']['hashName'],
+                $notes,
+                $developerNotes,
+                $bundleIdentifier,
+                $bundleVersion,
+                $bundleBuild,
+                $infoPlistArrayAndXml['xml'],
+                0,
+                $mobileprovisionArrayAndXml['xml'],
+                $expirationDate);
             $insertIdNumber = $result;
 
             if ($result === false) {

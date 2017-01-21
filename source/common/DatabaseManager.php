@@ -1,5 +1,8 @@
 <?php
 
+
+require_once(__DIR__ . "/IpaAnalysis.php");
+
 class DatabaseManager extends SQLite3
 {
     private static $instance = null;
@@ -32,15 +35,74 @@ class DatabaseManager extends SQLite3
             self::$instance->open($dataBaseDirectory. 'list.db');
             $adhocTableCount = self::$instance->querySingle("select count(*) as count from sqlite_master where type='table' and name='adhoc'", true);
             if ($adhocTableCount["count"] == 0) {
-                self::$instance->exec('CREATE TABLE adhoc (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, directoryName TEXT UNIQUE NOT NULL, ipa TEXT NOT NULL, ipaTmpHash TEXT NOT NULL, notes TEXT, developerNotes TEXT, ipaBundleIdentifier TEXT, ipaVersion TEXT, ipaBuild TEXT, infoPlistXml TEXT , isInvalidBackground INTEGER NOT NULL, isHide INTEGER NOT NULL, sortOrder INTEGER NOT NULL, isDelete INTEGER NOT NULL, createDate DATETIME NOT NULL)');
+                self::$instance->exec('CREATE TABLE adhoc (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, directoryName TEXT UNIQUE NOT NULL, ipa TEXT NOT NULL, ipaTmpHash TEXT NOT NULL, notes TEXT, developerNotes TEXT, ipaBundleIdentifier TEXT, ipaVersion TEXT, ipaBuild TEXT, infoPlistXml TEXT , isInvalidBackground INTEGER NOT NULL, isHide INTEGER NOT NULL, sortOrder INTEGER NOT NULL, isDelete INTEGER NOT NULL, createDate DATETIME NOT NULL, mobileprovisionXml TEXT, expirationDate DATETIME)');
             }
             $downloadTableCount = self::$instance->querySingle("select count(*) as count from sqlite_master where type='table' and name='download'", true);
             if ($downloadTableCount["count"] == 0) {
                 self::$instance->exec('CREATE TABLE download (id INTEGER PRIMARY KEY AUTOINCREMENT, directoryName TEXT NOT NULL, ipaFileName TEXT NOT NULL, userAgent TEXT NOT NULL, downloadType INTEGER NOT NULL, ipAddress TEXT NOT NULL, createDate DATETIME NOT NULL)');
             }
+
+            self::migrationsVer110();
         }
 
         return self::$instance;
+    }
+
+    private static function migrationsVer110() {
+
+        // Migrations ver 1.1.0
+        $sqliteResult = self::$instance->query("PRAGMA table_info(adhoc)");
+        $adhocColumnArray = array();
+        while ($result = $sqliteResult->fetchArray(SQLITE3_ASSOC)) {
+            $adhocColumnArray[$result['name']] = $result['name'];
+        }
+
+        $isMigrations = true;
+        // transaction を行わずに １つずつカラムを追加して、最後にカラムの確認を行う
+        if(!isset($adhocColumnArray['mobileprovisionXml'])) {
+            self::$instance->exec('ALTER TABLE adhoc ADD COLUMN mobileprovisionXml TEXT');
+            $isMigrations = true;
+        }
+        if(!isset($adhocColumnArray['expirationDate'])) {
+            self::$instance->exec('ALTER TABLE adhoc ADD COLUMN expirationDate DATETIME');
+            $isMigrations = true;
+        }
+        if ($isMigrations) {
+            $sqliteResult = self::$instance->query("PRAGMA table_info(adhoc)");
+            $adhocColumnArray = array();
+            while ($result = $sqliteResult->fetchArray(SQLITE3_ASSOC)) {
+                $adhocColumnArray[$result['name']] = $result['name'];
+            }
+
+            if(!isset($adhocColumnArray['mobileprovisionXml']) || !isset($adhocColumnArray['expirationDate'])) {
+                throw new Exception('Migrations 処理に失敗しました。 ver 1.1.0');
+            }
+
+            $datas = self::$instance->adhocSelectAll();
+
+            self::$instance->query("BEGIN;");
+            $isSuccess = true;
+            foreach ($datas as $data) {
+                $id = $data['id'];
+                $filePath = __DIR__ . '/../data/app/' . $data['directoryName'] . '/' . $data['ipaTmpHash'];
+                $ipa = new IpaAnalysis($filePath);
+                $mobileprovisionArrayAndXml = $ipa->getMobileprovisionArrayAndXml();
+                if (array_key_exists('ExpirationDate', $mobileprovisionArrayAndXml['array'])) {
+                    $expirationDate = date('Y-m-d H:i:s', $mobileprovisionArrayAndXml['array']['ExpirationDate']);
+                }
+                $dbUpdateResult = self::$instance->adhocMigrationsVer110Update($id, $mobileprovisionArrayAndXml['xml'], $expirationDate);
+                if ($dbUpdateResult === False) {
+                    $isSuccess = false;
+                }
+            }
+            if($isSuccess) {
+                self::$instance->query("COMMIT;");
+            } else {
+                self::$instance->query("ROLLBACK;");
+            }
+
+        }
+
     }
 
 
@@ -51,7 +113,20 @@ class DatabaseManager extends SQLite3
     }
 
 
-    public function adhocInsert($title, $directoryName, $ipa, $ipaTmpHash, $notes, $developerNotes, $ipaBundleIdentifier, $ipaVersion, $ipaBuild, $infoPlistXml, $isHide)
+    public function adhocInsert(
+        $title,
+        $directoryName,
+        $ipa,
+        $ipaTmpHash,
+        $notes,
+        $developerNotes,
+        $ipaBundleIdentifier,
+        $ipaVersion,
+        $ipaBuild,
+        $infoPlistXml,
+        $isHide,
+        $mobileprovisionXml,
+        $expirationDate)
     {
         $columnIdRow = $this->querySingle('select id from adhoc order by id desc limit 1');
         $sortOrder = 1;
@@ -60,7 +135,50 @@ class DatabaseManager extends SQLite3
         }
 
         $date = $this->getDatabaseNowDate();
-        $stmt = $this->prepare('INSERT INTO adhoc (title, directoryName, ipa, ipaTmpHash, notes, developerNotes, ipaBundleIdentifier, ipaVersion, ipaBuild, infoPlistXml, isInvalidBackground, isHide, sortOrder, isDelete, createDate) VALUES (:title, :directoryName, :ipa, :ipaTmpHash, :notes, :developerNotes, :ipaBundleIdentifier, :ipaVersion, :ipaBuild, :infoPlistXml, :isInvalidBackground, :isHide, :sortOrder, :isDelete, :createDate)');
+        $insertSql = <<<EOT
+INSERT INTO adhoc
+(
+    title, 
+    directoryName, 
+    ipa, 
+    ipaTmpHash, 
+    notes, 
+    developerNotes, 
+    ipaBundleIdentifier, 
+    ipaVersion, 
+    ipaBuild, 
+    infoPlistXml, 
+    isInvalidBackground, 
+    isHide, 
+    sortOrder, 
+    isDelete, 
+    createDate, 
+    mobileprovisionXml, 
+    expirationDate
+)
+VALUES
+(
+    :title, 
+    :directoryName, 
+    :ipa, 
+    :ipaTmpHash, 
+    :notes, 
+    :developerNotes, 
+    :ipaBundleIdentifier, 
+    :ipaVersion, 
+    :ipaBuild, 
+    :infoPlistXml, 
+    :isInvalidBackground, 
+    :isHide, 
+    :sortOrder, 
+    :isDelete, 
+    :createDate, 
+    :mobileprovisionXml, 
+    :expirationDate
+)
+EOT;
+
+        $stmt = $this->prepare($insertSql);
         $stmt->bindValue(':title', $title, SQLITE3_TEXT);
         $stmt->bindValue(':directoryName', $directoryName, SQLITE3_TEXT);
         $stmt->bindValue(':ipa', $ipa, SQLITE3_TEXT);
@@ -76,6 +194,8 @@ class DatabaseManager extends SQLite3
         $stmt->bindValue(':sortOrder', $sortOrder);
         $stmt->bindValue(':isDelete', 0);
         $stmt->bindValue(':createDate', $date, SQLITE3_TEXT);
+        $stmt->bindValue(':mobileprovisionXml', $mobileprovisionXml, SQLITE3_TEXT);
+        $stmt->bindValue(':expirationDate', $expirationDate, SQLITE3_TEXT);
         $result = $stmt->execute();
 
         if ($result === false) {
@@ -117,6 +237,17 @@ class DatabaseManager extends SQLite3
         $stmt->bindValue(':isInvalidBackground', $isInvalidBackground);
         $stmt->bindValue(':isHide', $isHide);
         $stmt->bindValue(':sortOrder', $sortOrder);
+        $sqliteResult = $stmt->execute();
+
+        return $sqliteResult;
+    }
+
+    private function adhocMigrationsVer110Update($id, $mobileprovisionXml, $expirationDate) {
+
+        $stmt = $this->prepare('UPDATE adhoc SET mobileprovisionXml = :mobileprovisionXml, expirationDate = :expirationDate WHERE id = :id');
+        $stmt->bindValue(':id', $id);
+        $stmt->bindValue(':mobileprovisionXml', $mobileprovisionXml, SQLITE3_TEXT);
+        $stmt->bindValue(':expirationDate', $expirationDate, SQLITE3_TEXT);
         $sqliteResult = $stmt->execute();
 
         return $sqliteResult;

@@ -36,11 +36,6 @@
 
     {if !$isAdmin|default:true === true}
 
-        <div style="color: red; font-weight: bold; margin-bottom: 30px; font-size: large">
-            アップロードされているアプリは、6ヶ月程度でインストール出来なくなります。<br>
-            Appleの仕様のため、インストール出来ない場合は開発者に再度アップロードを依頼してください
-        </div>
-
         <div>最初に下記をダウンロードして、認証局を信頼リストに追加してください</div>
         <div>
             <button type="button" class="btn btn-sm btn-default" onclick="location.href='./cacert.der'">自己証明の証明書をダウンロード
@@ -73,6 +68,7 @@
             {if $isAdmin|default:false === true}
                 <th class="text-center">Build</th>
             {/if}
+            <th class="text-center">インストール期限 (JST)</th>
             <th class="text-center">登録日時 (JST)</th>
             {if $isAdmin|default:false === true}
                 <th class="text-center">背景無効色</th>
@@ -87,43 +83,45 @@
 
         {if isset($data)}
             {foreach $data as $d}
+                {assign var="hasInstall" value={{'Y-m-d H:i:s'|date}|strtotime} > {$d.expirationDate|strtotime} nocache}
                 <tr style="{if $isAdmin|default:false === false && $d.isHide === 1}display: none;{/if}">
-                    <td style="{if $d.isInvalidBackground === 1}background-color: dimgray;{/if}">{$d.id}</td>
+                    <td style="{if $d.isInvalidBackground === 1 && !$hasInstall}background-color: dimgray;{elseif $hasInstall}background-color: darkred;{/if}">{$d.id}</td>
                     {if $isMobileTablet|default:false === true}
-                        <td style="{if $d.isInvalidBackground === 1}background-color: dimgray;{/if}">
+                        <td style="{if $d.isInvalidBackground === 1 && !$hasInstall}background-color: dimgray;{elseif $hasInstall}background-color: darkred;{/if}">
                             <a href="itms-services://?action=download-manifest&url={$url}/dl.php/plist/{$d.directoryName}/0">{$d.title|escape:"html"}</a>
                         </td>
                         {*<td><a href="itms-services://?action=download-manifest&url={$url}/dl.php/plist/{$d.directoryName}/0">{$d.title|escape:"html"}</a></td>*}
                     {elseif $isPC|default:false === true}
-                        <td style="{if $d.isInvalidBackground === 1}background-color: dimgray;{/if}"><a href="{$url}/dl.php/ipa/{$d.directoryName}/1">{$d.title|escape:"html"}</a>
+                        <td style="{if $d.isInvalidBackground === 1 && !$hasInstall}background-color: dimgray;{elseif $hasInstall}background-color: darkred;{/if}"><a href="{$url}/dl.php/ipa/{$d.directoryName}/1">{$d.title|escape:"html"}</a>
                         </td>
                         {*<td><a href="{$url}/dl.php/ipa/{$d.directoryName}/1">{$d.title|escape:"html"}</a></td>*}
                     {elseif $isAdmin|default:false === true}
-                        <td style="{if $d.isInvalidBackground === 1}background-color: dimgray;{/if}">{$d.title|escape:"html"}</td>
+                        <td style="{if $d.isInvalidBackground === 1 && !$hasInstall}background-color: dimgray;{elseif $hasInstall}background-color: darkred;{/if}">{$d.title|escape:"html"}</td>
                     {/if}
                     {*<td class="text-left">{$d.notes|escape:"html"|replace:"\r\n":"<br>"|replace:"\r":"<br>"|replace:"\n":"<br>"}</td>*}
-                    <td class="text-left" style="{if $d.isInvalidBackground === 1}background-color: dimgray;{/if}">{$d.notes|htmlescape:$tags|replace:"\r\n":"<br>"|replace:"\r":"<br>"|replace:"\n":"<br>"}</td>
+                    <td class="text-left" style="{if $d.isInvalidBackground === 1 && !$hasInstall}background-color: dimgray;{elseif $hasInstall}background-color: darkred;{/if}">{$d.notes|htmlescape:$tags|replace:"\r\n":"<br>"|replace:"\r":"<br>"|replace:"\n":"<br>"}</td>
                     {if $isAdmin|default:false === true}
-                        <td class="text-left" style="{if $d.isInvalidBackground === 1}background-color: dimgray;{/if}">{$d.developerNotes|escape:"html"|replace:"\r\n":"<br>"|replace:"\r":"<br>"|replace:"\n":"<br>"}</td>
-                        <td style="{if $d.isInvalidBackground === 1}background-color: dimgray;{/if}">
+                        <td class="text-left" style="{if $d.isInvalidBackground === 1 && !$hasInstall}background-color: dimgray;{elseif $hasInstall}background-color: darkred;{/if}">{$d.developerNotes|escape:"html"|replace:"\r\n":"<br>"|replace:"\r":"<br>"|replace:"\n":"<br>"}</td>
+                        <td style="{if $d.isInvalidBackground === 1 && !$hasInstall}background-color: dimgray;{elseif $hasInstall}background-color: darkred;{/if}">
                             <a href="javascript:void(window.open('../ipainfo.php?i={$d.directoryName}{$d.ipaTmpHash}', 'ipa情報', 'width=600, height=650, menubar=no, toolbar=no, scrollbars=yes'));">表示</a>
                         </td>
                     {/if}
-                    <td style="{if $d.isInvalidBackground === 1}background-color: dimgray;{/if}">{$d.ipaVersion}</td>
+                    <td style="{if $d.isInvalidBackground === 1 && !$hasInstall}background-color: dimgray;{elseif $hasInstall}background-color: darkred;{/if}">{$d.ipaVersion}</td>
                     {if $isAdmin|default:false === true}
-                        <td style="{if $d.isInvalidBackground === 1}background-color: dimgray;{/if}">{$d.ipaBuild}</td>
+                        <td style="{if $d.isInvalidBackground === 1 && !$hasInstall}background-color: dimgray;{elseif $hasInstall}background-color: darkred;{/if}">{$d.ipaBuild}</td>
                     {/if}
-                    <td style="{if $d.isInvalidBackground === 1}background-color: dimgray;{/if}">{$d.createDate}</td>
+                    <td style="{if $d.isInvalidBackground === 1 && !$hasInstall}background-color: dimgray;{elseif $hasInstall}background-color: darkred;{/if}">{$d.expirationDate}</td>
+                    <td style="{if $d.isInvalidBackground === 1 && !$hasInstall}background-color: dimgray;{elseif $hasInstall}background-color: darkred;{/if}">{$d.createDate}</td>
                     {if $isAdmin|default:false === true}
-                        <td style="{if $d.isInvalidBackground === 1}background-color: dimgray; color: red;{/if}">{if $d.isInvalidBackground === 1}無効{else}有効{/if}</td>
-                        <td style="{if $d.isHide === 1}color: red;{/if}{if $d.isInvalidBackground === 1}background-color: dimgray;{/if}"">{if $d.isHide === 1}非表示{else}表示{/if}</td>
-                        <td style="{if $d.isInvalidBackground === 1}background-color: dimgray;{/if}">{$d.sortOrder}</td>
-                        <td style="{if $d.isInvalidBackground === 1}background-color: dimgray;{/if}">
+                        <td style="{if $d.isInvalidBackground === 1 && !$hasInstall}background-color: dimgray; color: red;{elseif $hasInstall}background-color: darkred;{/if}">{if $d.isInvalidBackground === 1}無効{else}有効{/if}</td>
+                        <td style="{if $d.isHide === 1}color: red;{/if}{if $d.isInvalidBackground === 1 && !$hasInstall}background-color: dimgray;{elseif $hasInstall}background-color: darkred;{/if}">{if $d.isHide === 1}非表示{else}表示{/if}</td>
+                        <td style="{if $d.isInvalidBackground === 1 && !$hasInstall}background-color: dimgray;{elseif $hasInstall}background-color: darkred;{/if}">{$d.sortOrder}</td>
+                        <td style="{if $d.isInvalidBackground === 1 && !$hasInstall}background-color: dimgray;{elseif $hasInstall}background-color: darkred;{/if}">
                             <button type="button" class="btn btn-sm btn-warning" id="editButton" name="editButton"
                                     value="{$d.directoryName}{$d.ipaTmpHash}">編集
                             </button>
                         </td>
-                        <td style="{if $d.isInvalidBackground === 1}background-color: dimgray;{/if}">
+                        <td style="{if $d.isInvalidBackground === 1 && !$hasInstall}background-color: dimgray;{elseif $hasInstall}background-color: darkred;{/if}">
                             <button type="button" class="btn btn-sm btn-danger" id="deleteButton" name="deleteButton"
                                     value="{$d.directoryName}">削除
                             </button>

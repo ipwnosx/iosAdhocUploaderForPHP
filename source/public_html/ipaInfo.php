@@ -21,8 +21,8 @@ if (isset($_GET['i'])) {
 
         if ($directory !== '' && $file !== '') {
             $databaseData = $db->adhocSelect($directory, $file);
-            $infoPlistXml = $databaseData['infoPlistXml'];
-            $plistArray = IpaAnalysis::getInfoPlistArray($infoPlistXml);
+            $plistArray = IpaAnalysis::getArrayFromPlistString($databaseData['infoPlistXml']);
+            $mobileprovisionArray = IpaAnalysis::getArrayFromPlistString($databaseData['mobileprovisionXml']);
         }
     }
 }
@@ -30,6 +30,7 @@ if (isset($_GET['i'])) {
 $smarty->assign("database", $databaseData);
 if ( !is_null($plistArray) ) {
     $smarty->assign("data", $plistArray);
+    $smarty->assign("mobileprovisionArray", $mobileprovisionArray);
 }
 
 //echo "<pre>";
