@@ -22,6 +22,8 @@
         <tr><td>id</td><td>{$database.id}</td></tr>
         <tr><td style="vertical-align: middle;">タイトル</td><td style="vertical-align: middle;">{$database.title}</td></tr>
         <tr><td style="vertical-align: middle;">ipaファイル名</td><td style="vertical-align: middle;">{$database.ipa}</td></tr>
+        <tr><td style="vertical-align: middle;">背景無効色</td><td style="vertical-align: middle;">{if $d.isInvalidBackground === 1}無効{else}有効{/if}</td></tr>
+        <tr><td style="vertical-align: middle;">登録日時 (JST)</td><td style="vertical-align: middle;">{$database.createDate}</td></tr>
         </tbody>
     </table>
 

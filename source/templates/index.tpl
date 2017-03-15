@@ -96,10 +96,10 @@
             {if $isAdmin|default:false === true}
                 <th class="text-center">Build</th>
             {/if}
-            <th class="text-center">インストール期限 (JST)</th>
-            <th class="text-center">登録日時 (JST)</th>
+            {*<th class="text-center">インストール期限 (JST)</th>*}
+            {*<th class="text-center">登録日時 (JST)</th>*}
             {if $isAdmin|default:false === true}
-                <th class="text-center">背景無効色</th>
+                {*<th class="text-center">背景無効色</th>*}
                 <th class="text-center">非表示</th>
                 <th class="text-center">並び優先度</th>
                 <th class="text-center">編集</th>
@@ -143,10 +143,10 @@
                     {if $isAdmin|default:false === true}
                         <td style="{$styleBackgroundColor}">{$d.ipaBuild}</td>
                     {/if}
-                    <td style="{$styleBackgroundColor}">{$d.expirationDate}</td>
-                    <td style="{$styleBackgroundColor}">{$d.createDate}</td>
+                    {*<td style="{$styleBackgroundColor}">{$d.expirationDate}</td>*}
+                    {*<td style="{$styleBackgroundColor}">{$d.createDate}</td>*}
                     {if $isAdmin|default:false === true}
-                        <td style="{if $d.isInvalidBackground === 1}color: red;{/if} {$styleBackgroundColor}">{if $d.isInvalidBackground === 1}無効{else}有効{/if}</td>
+                        {*<td style="{if $d.isInvalidBackground === 1}color: red;{/if} {$styleBackgroundColor}">{if $d.isInvalidBackground === 1}無効{else}有効{/if}</td>*}
                         <td style="{if $d.isHide === 1}color: red;{/if} {$styleBackgroundColor}">{if $d.isHide === 1}非表示{else}表示{/if}</td>
                         <td style="{$styleBackgroundColor}">{$d.sortOrder}</td>
                         <td style="{$styleBackgroundColor}">
