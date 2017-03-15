@@ -17,7 +17,7 @@
 * [Javascript] jQuery v2.1.1
 * [php] Smarty 3.1.27
 * [php] Mobile Detect 2.8.17
-* [php] rodneyrehm/CFPropertyList
+* [php] rodneyrehm/CFPropertyList v2.0.1
 
 
 #### Mac に設定する際の手順
@@ -97,3 +97,4 @@ https://url/admin/jenkinsuploadapi.php \
 
 
 
+MIT License
