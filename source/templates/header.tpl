@@ -6,11 +6,11 @@
             <span class="icon-bar"></span>
         </button>
         {if $isMobileTablet|default:false === true}
-            <a class="navbar-brand" href="./index.php">ios AdHoc List (SP専用)　{$title|default:""}　v1.1.0</a>
+            <a class="navbar-brand" href="./index.php">ios AdHoc List (SP専用)　{$title|default:""}　v1.2.0</a>
         {elseif $isPC|default:false === true}
-            <a class="navbar-brand" href="./index.php">ios AdHoc List (PC専用)　{$title|default:""}　v1.1.0</a>
+            <a class="navbar-brand" href="./index.php">ios AdHoc List (PC専用)　{$title|default:""}　v1.2.0</a>
         {elseif $isAdmin|default:false === true}
-            <a class="navbar-brand" href="./index.php">管理者 ios AdHoc List　{$title|default:""}　v1.1.0</a>
+            <a class="navbar-brand" href="./index.php">管理者 ios AdHoc List　{$title|default:""}　v1.2.0</a>
         {/if}
     </div>
     <div class="navbar-collapse collapse navbar-responsive-collapse">

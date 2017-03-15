@@ -1,12 +1,13 @@
 {
-    "title": "",
-    "slack": [
-        {
-            "url": "",
-            "channel": "",
-            "username": "",
-            "icon_url": "",
-            "icon_emoji": ""
-        }
-    ]
+  "title": "",
+  "notice": "",
+  "slack": [
+    {
+      "url": "",
+      "channel": "",
+      "username": "",
+      "icon_url": "",
+      "icon_emoji": ""
+    }
+  ]
 }

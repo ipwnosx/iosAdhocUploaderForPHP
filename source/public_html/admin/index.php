@@ -18,6 +18,7 @@ $smarty->assign("isMobileTablet", false);
 $smarty->assign("isPC", false);
 $smarty->assign("isAdmin", true);
 $smarty->assign("headerTitle", Setting::getTitle());
+$smarty->assign("notice", Setting::getNotice());
 
 $smarty->assign("tags", array("a"));
 $smarty->display("index.tpl");

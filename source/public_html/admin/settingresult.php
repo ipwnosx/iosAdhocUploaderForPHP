@@ -21,6 +21,10 @@ $title = "";
 if (isset($_POST['inputTitle'])) {
     $title = $_POST['inputTitle'];
 }
+$notice = "";
+if (isset($_POST['inputNotice'])) {
+    $notice = $_POST['inputNotice'];
+}
 $slackApiUrl = "";
 if (isset($_POST['inputSlackApiUrl'])) {
     $slackApiUrl = $_POST['inputSlackApiUrl'];
@@ -50,6 +54,7 @@ try {
 
     $setting = Array(
         'title' => $title,
+        'notice' => $notice,
         'slack' => Array(
             Array(
                 'url' => $slackApiUrl,

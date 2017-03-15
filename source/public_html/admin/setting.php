@@ -15,4 +15,5 @@ if (empty($_SESSION['refreshToken'])) {
 }
 
 $smarty->assign("headerTitle", Setting::getTitle());
+$smarty->assign("notice", Setting::getNotice());
 $smarty->display("admin/setting.tpl");

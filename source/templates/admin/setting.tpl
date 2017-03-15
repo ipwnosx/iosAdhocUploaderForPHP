@@ -32,6 +32,14 @@
             </div>
 
             <div class="form-group">
+                <label for="inputNotice" class="col-lg-3 control-label">お知らせ</label>
+
+                <div class="col-lg-9">
+                    <textarea id="inputNotice" name="inputNotice" class="form-control" rows="5">{$notice|default:''}</textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
                 <label for="slack" class="col-lg-3 control-label">Slack情報</label>
             </div>
 

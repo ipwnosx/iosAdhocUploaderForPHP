@@ -27,6 +27,7 @@ if ($detect->isMobile() || $detect->isTablet()) {
     $smarty->assign("isAdmin", false);
 }
 $smarty->assign("headerTitle", Setting::getTitle());
+$smarty->assign("notice", Setting::getNotice());
 
 $smarty->assign("tags", array("a"));
 $smarty->display("index.tpl");

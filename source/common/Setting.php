@@ -60,6 +60,20 @@ class Setting
         return $result;
     }
 
+    public static function getNotice()
+    {
+        $result = "";
+
+        $obj = Setting::getSettingJsonFileDecodeObject();
+        if (!is_null($obj) && array_key_exists('notice', $obj)) {
+
+            $result = $obj['notice'];
+
+        }
+
+        return $result;
+    }
+
     public static function getSlackSetting()
     {
 
