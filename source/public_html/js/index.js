@@ -37,5 +37,22 @@
                 //});
         });
 
+        // チェックボックスが変化したとき
+        $('#canNotBeInstallCheckbox').change(function () {
+            if ($(this).is(':checked')) {
+                $('.notInstall').css('display', 'table-row');
+            } else {
+                $('.notInstall').css('display', 'none');
+            }
+        });
+        // ラベル領域をタップしてもチェックボックスを変化させる
+        $('#canNotBeInstallLabel').click(function () {
+            if($('#canNotBeInstallCheckbox').prop('checked')) {
+                $('#canNotBeInstallCheckbox').prop('checked', false).change();;
+            } else {
+                $('#canNotBeInstallCheckbox').prop('checked', true).change();;
+            }
+        });
+
     });
 })(jQuery);

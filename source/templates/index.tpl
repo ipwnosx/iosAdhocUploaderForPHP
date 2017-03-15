@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="./css/baseEdit.css">
         <script type="text/javascript" src="./js/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="./js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="./js/index.js"></script>
     {/if}
 
 
@@ -55,8 +56,8 @@
         <div>　</div>
     {/if}
 
-    {assign var="isInvalidBackgroundColor" value="dimgray" scope="root" nocache}
-    {assign var="isExpiredBackgroundColor" value="#FADBDA" scope="root" nocache}
+    {assign var="isInvalidBackgroundColor" value="background-color: dimgray" scope="root" nocache}
+    {assign var="isExpiredBackgroundColor" value="background-color: #FADBDA" scope="root" nocache}
     <div style="margin: 20px 0">
         凡例
         <div style="display: table; border: 1px solid;">
@@ -65,16 +66,21 @@
                 <div style="display: table-cell; border: 1px solid; text-align: center; font-weight: bold; width: 250px;">効果</div>
             </div>
             <div style="display: table-row">
-                <div style="display: table-cell; border: 1px solid; background: {$isInvalidBackgroundColor}"></div>
+                <div style="display: table-cell; border: 1px solid; {$isInvalidBackgroundColor}"></div>
                 <div style="display: table-cell; border: 1px solid;">推奨されないアプリ(詳細は開発者へ)</div>
             </div>
             <div style="display: table-row">
-                <div style="display: table-cell; border: 1px solid; background: {$isExpiredBackgroundColor}"></div>
+                <div style="display: table-cell; border: 1px solid; {$isExpiredBackgroundColor}"></div>
                 <div style="display: table-cell; border: 1px solid;">インストールの有効期限切れ</div>
             </div>
         </div>
     </div>
 
+    {if $isAdmin|default:false === false}
+    <div>
+        <input type="checkbox" id="canNotBeInstallCheckbox" style="margin: 10px 10px 20px; transform: scale(1.5)"><label id="canNotBeInstallLabel">インストール出来ないアプリを表示する</label>
+    </div>
+    {/if}
 
     <table class="table table-striped table-hover text-center">
         <thead>
@@ -107,46 +113,48 @@
             {foreach $data as $d}
                 {assign var="hasInstall" value={{'Y-m-d H:i:s'|date}|strtotime} > {$d.expirationDate|strtotime} nocache}
                 {assign var="styleBackgroundColor" value="" scope="root" nocache}
+                {assign var="classNameNotInstall" value="" scope="root" nocache}
                 {if $d.isInvalidBackground === 1 && !$hasInstall}
                     {assign var="styleBackgroundColor" value=$isInvalidBackgroundColor scope="root" nocache}
                 {elseif $hasInstall}
                     {assign var="styleBackgroundColor" value=$isExpiredBackgroundColor scope="root" nocache}
+                    {assign var="classNameNotInstall" value="notInstall" scope="root" nocache}
                 {/if}
-                <tr style="{if $isAdmin|default:false === false && $d.isHide === 1}display: none;{/if}">
-                    <td style="background-color: {$styleBackgroundColor};">{$d.id}</td>
+                <tr class="{$classNameNotInstall}" style="{if $isAdmin|default:false === false && ($d.isHide === 1 || $hasInstall)}display: none;{/if}">
+                    <td style="{$styleBackgroundColor};">{$d.id}</td>
                     {if $isMobileTablet|default:false === true}
-                        <td style="background-color: {$styleBackgroundColor};">
+                        <td style="{$styleBackgroundColor}">
                             <a href="itms-services://?action=download-manifest&url={$url}/dl.php/plist/{$d.directoryName}/0">{$d.title|escape:"html"}</a>
                         </td>
                     {elseif $isPC|default:false === true}
-                        <td style="background-color: {$styleBackgroundColor};"><a href="{$url}/dl.php/ipa/{$d.directoryName}/1">{$d.title|escape:"html"}</a>
+                        <td style="{$styleBackgroundColor}"><a href="{$url}/dl.php/ipa/{$d.directoryName}/1">{$d.title|escape:"html"}</a>
                         </td>
                     {elseif $isAdmin|default:false === true}
-                        <td style="background-color: {$styleBackgroundColor};">{$d.title|escape:"html"}</td>
+                        <td style="{$styleBackgroundColor}">{$d.title|escape:"html"}</td>
                     {/if}
-                    <td class="text-left" style="background-color: {$styleBackgroundColor};">{$d.notes|htmlescape:$tags|replace:"\r\n":"<br>"|replace:"\r":"<br>"|replace:"\n":"<br>"}</td>
+                    <td class="text-left" style="{$styleBackgroundColor}">{$d.notes|htmlescape:$tags|replace:"\r\n":"<br>"|replace:"\r":"<br>"|replace:"\n":"<br>"}</td>
                     {if $isAdmin|default:false === true}
-                        <td class="text-left" style="background-color: {$styleBackgroundColor};">{$d.developerNotes|escape:"html"|replace:"\r\n":"<br>"|replace:"\r":"<br>"|replace:"\n":"<br>"}</td>
-                        <td style="background-color: {$styleBackgroundColor};">
+                        <td class="text-left" style="{$styleBackgroundColor}">{$d.developerNotes|escape:"html"|replace:"\r\n":"<br>"|replace:"\r":"<br>"|replace:"\n":"<br>"}</td>
+                        <td style="{$styleBackgroundColor}">
                             <a href="javascript:void(window.open('../ipainfo.php?i={$d.directoryName}{$d.ipaTmpHash}', 'ipa情報', 'width=600, height=650, menubar=no, toolbar=no, scrollbars=yes'));">表示</a>
                         </td>
                     {/if}
-                    <td style="background-color: {$styleBackgroundColor};">{$d.ipaVersion}</td>
+                    <td style="{$styleBackgroundColor}">{$d.ipaVersion}</td>
                     {if $isAdmin|default:false === true}
-                        <td style="background-color: {$styleBackgroundColor};">{$d.ipaBuild}</td>
+                        <td style="{$styleBackgroundColor}">{$d.ipaBuild}</td>
                     {/if}
-                    <td style="background-color: {$styleBackgroundColor};">{$d.expirationDate}</td>
-                    <td style="background-color: {$styleBackgroundColor};">{$d.createDate}</td>
+                    <td style="{$styleBackgroundColor}">{$d.expirationDate}</td>
+                    <td style="{$styleBackgroundColor}">{$d.createDate}</td>
                     {if $isAdmin|default:false === true}
-                        <td style="{if $d.isInvalidBackground === 1}color: red;{/if} background-color: {$styleBackgroundColor};">{if $d.isInvalidBackground === 1}無効{else}有効{/if}</td>
-                        <td style="{if $d.isHide === 1}color: red;{/if} background-color: {$styleBackgroundColor};">{if $d.isHide === 1}非表示{else}表示{/if}</td>
-                        <td style="background-color: {$styleBackgroundColor};">{$d.sortOrder}</td>
-                        <td style="background-color: {$styleBackgroundColor};">
+                        <td style="{if $d.isInvalidBackground === 1}color: red;{/if} {$styleBackgroundColor}">{if $d.isInvalidBackground === 1}無効{else}有効{/if}</td>
+                        <td style="{if $d.isHide === 1}color: red;{/if} {$styleBackgroundColor}">{if $d.isHide === 1}非表示{else}表示{/if}</td>
+                        <td style="{$styleBackgroundColor}">{$d.sortOrder}</td>
+                        <td style="{$styleBackgroundColor}">
                             <button type="button" class="btn btn-sm btn-warning" id="editButton" name="editButton"
                                     value="{$d.directoryName}{$d.ipaTmpHash}">編集
                             </button>
                         </td>
-                        <td style="background-color: {$styleBackgroundColor};">
+                        <td style="{$styleBackgroundColor};">
                             <button type="button" class="btn btn-sm btn-danger" id="deleteButton" name="deleteButton"
                                     value="{$d.directoryName}">削除
                             </button>
