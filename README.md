@@ -30,7 +30,7 @@
   * upload_max_filesize = 2G
 
 * SSLの証明書は運用するIPアドレスにすること（自己証明でも！下記参照）
-  * [https://gist.github.com/npoyu/7ee01562a2188e1e63ce9557321fbb17](https://gist.github.com/npoyu/7ee01562a2188e1e63ce9557321fbb17)
+  * [https://gist.github.com/ngyoi/7ee01562a2188e1e63ce9557321fbb17](https://gist.github.com/ngyoi/7ee01562a2188e1e63ce9557321fbb17)
 
 
 #### アクセス権限の設定等
